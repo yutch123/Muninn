@@ -15,10 +15,12 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(ftxui) ## Подключаем её к сборке
 
-add_executable(Muninn main.cpp) ## Указываем, что из main.cpp нужно собирать исполняемый файл
+add_executable(Muninn main.cpp "src/question/Question.h") ## Указываем, что из main.cpp нужно собирать исполняемый файл
 
 target_link_libraries(Muninn PRIVATE ## Связываем наш исполняемый файл с трёмя модулями 
 	ftxui::screen ## отрисовка терминала
 	ftxui::dom ## построение терминала
 	ftxui::component ## интерактивный компонент
 )
+
+add_executable(QuestionTest src/question/QuestionTest.cpp) 
