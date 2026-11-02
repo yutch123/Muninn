@@ -1,0 +1,31 @@
+{
+  "id": 1,
+  "title": "C++ Basics",
+  "description": "Basic questions about C++ programming",
+  "questions": [
+    {
+      "id": 1,
+      "type": "OpenText",
+      "text": "What is a variable in C++?",
+      "expectedAnswer": "A variable is a named memory location used to store data.",
+      "acceptedAnswers": [],
+      "rules": {
+        "minLength": 10,
+        "caseSensitive": false
+      },
+      "explanation": "Variables store values that can be used and modified during program execution."
+    },
+    {
+      "id": 2,
+      "type": "OpenText",
+      "text": "What is a pointer in C++?",
+      "expectedAnswer": "A pointer is a variable that stores the memory address of another variable.",
+      "acceptedAnswers": [],
+      "rules": {
+        "minLength": 10,
+        "caseSensitive": false
+      },
+      "explanation": "Pointers allow direct access to memory addresses."
+    }
+  ]
+}

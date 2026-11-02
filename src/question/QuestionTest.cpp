@@ -1,4 +1,4 @@
-#include "Question.h"
+п»ї#include "Question.h"
 #include <iostream>
 
 int main()
@@ -24,7 +24,7 @@ int main()
 		"Compliance means ensuring that an organization "
 		"follows applicable laws, regulations and internal policies.";
 
-	// выводим данные в консоль
+	// РІС‹РІРѕРґРёРј РґР°РЅРЅС‹Рµ РІ РєРѕРЅСЃРѕР»СЊ
 	std::cout << "ID: " << question.id << '\n';
 	std::cout << "Question: " << question.text << '\n';
 	std::cout << "Expected answer: " << question.expectedAnswer << '\n';
@@ -43,5 +43,5 @@ int main()
 	std::cout << "Case sensitive: "
 		<< question.rules.caseSensitive << '\n';
 
-	return 0; // завершение программы
+	return 0; // Р·Р°РІРµСЂС€РµРЅРёРµ РїСЂРѕРіСЂР°РјРјС‹
 }

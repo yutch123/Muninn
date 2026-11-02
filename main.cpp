@@ -1,17 +1,53 @@
-#include <ftxui/component/component.hpp> // Интерактивные элементы интерфейса
-#include <ftxui/component/screen_interactive.hpp> // Интерактивный экран терминала
-#include <ftxui/dom/elements.hpp> // Система построения визуальных элементов терминала
+п»ї#include "src/question/Question.h"
+#include "nlohmann/json.hpp"
+#include <fstream>
+#include <filesystem>
+
+#include <ftxui/component/component.hpp> // РРЅС‚РµСЂР°РєС‚РёРІРЅС‹Рµ СЌР»РµРјРµРЅС‚С‹ РёРЅС‚РµСЂС„РµР№СЃР°
+#include <ftxui/component/screen_interactive.hpp> // РРЅС‚РµСЂР°РєС‚РёРІРЅС‹Р№ СЌРєСЂР°РЅ С‚РµСЂРјРёРЅР°Р»Р°
+#include <ftxui/dom/elements.hpp> // РЎРёСЃС‚РµРјР° РїРѕСЃС‚СЂРѕРµРЅРёСЏ РІРёР·СѓР°Р»СЊРЅС‹С… СЌР»РµРјРµРЅС‚РѕРІ С‚РµСЂРјРёРЅР°Р»Р°
 
 #include <string>
 
 int main()
 {
-    using namespace ftxui;
+    nlohmann::json data;
+
+    std::cout << std::filesystem::current_path() << std::endl;
+
+    std::ifstream file("../../../data/basic_questions.json");
+
+    if (file.is_open())
+    {
+        std::cout << "File opened successfully!" << std::endl;
+        file >> data;
+
+        file.close();
+    }
+
+    else
+    {
+        std::cout << "Failed to open file!" << std::endl;
+        return 1;
+    }
+
+    std::cout << "Title: " << data["title"] << std::endl;
+    std::cout << "Description: " << data["description"] << std::endl;
+
+    std::cout << "Number of questions: "
+        << data["questions"].size() << std::endl;
+
+    std::cout << "Right answer: "
+        << data["questions"][0]["expectedAnswer"];
+
+    return 0;
+
+    /*using namespace ftxui;
 
     auto screen = ScreenInteractive::Fullscreen();
 
-    std::string answer; // Переменная вопроса
-    std::string message = "Enter your answer and press Check."; // Переменная ответа
+    std::string answer; // РџРµСЂРµРјРµРЅРЅР°СЏ РІРѕРїСЂРѕСЃР°
+    std::string message = "Enter your answer and press Check."; // РџРµСЂРµРјРµРЅРЅР°СЏ РѕС‚РІРµС‚Р°
 
     auto input = Input(&answer, "Type your answer...");
     auto check_button = Button("Check", [&] {
@@ -51,6 +87,7 @@ int main()
         });
 
     screen.Loop(renderer);
+    */
 
 }
 

@@ -13,14 +13,22 @@ FetchContent_Declare(
 	GIT_TAG v5.0.0
 )
 
-FetchContent_MakeAvailable(ftxui) ## Подключаем её к сборке
+FetchContent_Declare(
+	nlohmann_json
+	GIT_REPOSITORY https://github.com/nlohmann/json.git
+    GIT_TAG v3.12.0
+)
 
+FetchContent_MakeAvailable(ftxui nlohmann_json) ## Подключаем её к сборке
 add_executable(Muninn main.cpp "src/question/Question.h") ## Указываем, что из main.cpp нужно собирать исполняемый файл
 
 target_link_libraries(Muninn PRIVATE ## Связываем наш исполняемый файл с трёмя модулями 
 	ftxui::screen ## отрисовка терминала
 	ftxui::dom ## построение терминала
 	ftxui::component ## интерактивный компонент
+	nlohmann_json::nlohmann_json
 )
 
-add_executable(QuestionTest src/question/QuestionTest.cpp) 
+add_executable(QuestionTest src/question/QuestionTest.cpp)
+
+add_executable(QuestionSet src/question/QuestionSetTest.cpp)

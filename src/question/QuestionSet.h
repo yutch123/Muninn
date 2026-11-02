@@ -1,11 +1,11 @@
-#include "Question.h"
+п»ї#include "Question.h"
 #include <vector>
-#include <string> // теперь структура самостоятельно использует std::string
+#include <string> // С‚РµРїРµСЂСЊ СЃС‚СЂСѓРєС‚СѓСЂР° СЃР°РјРѕСЃС‚РѕСЏС‚РµР»СЊРЅРѕ РёСЃРїРѕР»СЊР·СѓРµС‚ std::string
 
-struct QuestionSet // основная струкутра
+struct QuestionSet // РѕСЃРЅРѕРІРЅР°СЏ СЃС‚СЂСѓРєСѓС‚СЂР°
 {
-	int id; // идентифицирует набор
-	std::string title; // хранит его название
-	std::string description; // хранит описание
-	std::vector<Question> questions; // содержит вопросы Question
+	int id; // РёРґРµРЅС‚РёС„РёС†РёСЂСѓРµС‚ РЅР°Р±РѕСЂ
+	std::string title; // С…СЂР°РЅРёС‚ РµРіРѕ РЅР°Р·РІР°РЅРёРµ
+	std::string description; // С…СЂР°РЅРёС‚ РѕРїРёСЃР°РЅРёРµ
+	std::vector<Question> questions; // СЃРѕРґРµСЂР¶РёС‚ РІРѕРїСЂРѕСЃС‹ Question
 };
