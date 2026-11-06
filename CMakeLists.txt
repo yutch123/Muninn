@@ -20,7 +20,7 @@ FetchContent_Declare(
 )
 
 FetchContent_MakeAvailable(ftxui nlohmann_json) ## Подключаем её к сборке
-add_executable(Muninn main.cpp "src/question/Question.h") ## Указываем, что из main.cpp нужно собирать исполняемый файл
+add_executable(Muninn main.cpp "src/question/Question.h" "src/loader/QuestionSetLoader.h" "src/loader/QuestionSetLoader.cpp") ## Указываем, что из main.cpp нужно собирать исполняемый файл
 
 target_link_libraries(Muninn PRIVATE ## Связываем наш исполняемый файл с трёмя модулями 
 	ftxui::screen ## отрисовка терминала

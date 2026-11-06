@@ -8,7 +8,10 @@
       "type": "OpenText",
       "text": "What is a variable in C++?",
       "expectedAnswer": "A variable is a named memory location used to store data.",
-      "acceptedAnswers": [],
+      "acceptedAnswers": [
+        "Named storage location for data",
+        "A named variable used to store a value"
+      ],
       "rules": {
         "minLength": 10,
         "caseSensitive": false

@@ -1,94 +1,62 @@
-﻿#include "src/question/Question.h"
-#include "nlohmann/json.hpp"
-#include <fstream>
-#include <filesystem>
+﻿#include "src/loader/QuestionSetLoader.h"
+#include "src/question/QuestionSet.h"
 
-#include <ftxui/component/component.hpp> // Интерактивные элементы интерфейса
-#include <ftxui/component/screen_interactive.hpp> // Интерактивный экран терминала
-#include <ftxui/dom/elements.hpp> // Система построения визуальных элементов терминала
-
+#include <iostream>
 #include <string>
 
 int main()
 {
-    nlohmann::json data;
+    QuestionSet questionSet;
+    QuestionSetLoader loader;
+    std::string error;
 
-    std::cout << std::filesystem::current_path() << std::endl;
-
-    std::ifstream file("../../../data/basic_questions.json");
-
-    if (file.is_open())
+    if (loader.LoadFromFile("../../../data/basic_questions.json", questionSet, error))
     {
-        std::cout << "File opened successfully!" << std::endl;
-        file >> data;
+        std::cout << "Question Set ID: " << questionSet.id << std::endl;
+        std::cout << "Title: " << questionSet.title << std::endl;
+        std::cout << "Description: " << questionSet.description << std::endl;
 
-        file.close();
+        std::cout << "Number of questions: "
+            << questionSet.questions.size() << std::endl;
+
+        for (const Question& question : questionSet.questions)
+        {
+            std::cout << "Question ID: " << question.id << std::endl;
+            std::cout << "Question text: " << question.text << std::endl;
+            std::cout << "Expected answer: " << question.expectedAnswer << std::endl;
+            std::cout << "Accepted answers: "
+                << question.acceptedAnswers.size() << std::endl;
+
+            std::cout << "Minimum answer length: "
+                << question.rules.minLength << std::endl;
+
+            std::cout << "Case sensitive: "
+                << question.rules.caseSensitive << std::endl;
+
+            std::cout << "Explanation: "
+                << question.explanation << std::endl;
+
+            for (const std::string& answer : question.acceptedAnswers)
+            {
+                std::cout << " - " << answer << std::endl;
+            }
+
+            if (question.type == QuestionType::OpenText)
+            {
+                std::cout << "Type: OpenText" << std::endl;
+            }
+            else if (question.type == QuestionType::MultipleChoice)
+            {
+                std::cout << "Type: MultipleChoice" << std::endl;
+            }
+        }
     }
-
     else
     {
-        std::cout << "Failed to open file!" << std::endl;
-        return 1;
+        std::cout << "Error: " << error << std::endl;
     }
 
-    std::cout << "Title: " << data["title"] << std::endl;
-    std::cout << "Description: " << data["description"] << std::endl;
-
-    std::cout << "Number of questions: "
-        << data["questions"].size() << std::endl;
-
-    std::cout << "Right answer: "
-        << data["questions"][0]["expectedAnswer"];
-
     return 0;
-
-    /*using namespace ftxui;
-
-    auto screen = ScreenInteractive::Fullscreen();
-
-    std::string answer; // Переменная вопроса
-    std::string message = "Enter your answer and press Check."; // Переменная ответа
-
-    auto input = Input(&answer, "Type your answer...");
-    auto check_button = Button("Check", [&] {
-        if (answer == "Muninn") {
-            message = "Correct! The raven remembers.";
-        }
-        else {
-            message = "Not quite. Try again!";
-        }
-
-        });
-
-    auto component = Container::Vertical({
-        input,
-        check_button,
-        });
-
-    auto renderer = Renderer(component, [&] {
-        return vbox({
-            text("MUNINN") | bold | center,
-            separator(),
-            text("Welcome to your knowledge trainer.") | center,
-            text(""),
-            hbox({
-                text("Answer: "),
-                input->Render(),
-            }),
-            text(""),
-            hbox({
-                filler(),
-                check_button->Render(),
-                filler(),
-            }),
-            text(""),
-            text(message) | center,
-            }) | border | size(WIDTH, GREATER_THAN, 50) | center;
-        });
-
-    screen.Loop(renderer);
-    */
-
 }
 
 

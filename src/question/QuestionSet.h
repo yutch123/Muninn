@@ -1,4 +1,6 @@
-﻿#include "Question.h"
+﻿#pragma once
+
+#include "Question.h"
 #include <vector>
 #include <string> // теперь структура самостоятельно использует std::string
 
