@@ -3,18 +3,7 @@
 #include <string>
 #include <fstream>
 #include <nlohmann/json.hpp>
-#include <iostream>
 #include "../loader/QuestionSetLoader.h"
-
-static_assert(sizeof(QuestionSet) > 0, "QuestionSet is incomplete");
-
-/*#include "../question/QuestionSet.h"
-#include <fstream>
-#include <nlohmann/json.hpp>
-#include "../loader/QuestionSetLoader.h"
-#include <iostream>
-*/
-
 
 bool QuestionSetLoader::LoadFromFile(
 	const std::string& filePath,
@@ -37,9 +26,11 @@ bool QuestionSetLoader::LoadFromFile(
 	{
 		file >> data;
 
-		questionSet.id = data["id"].get<int>();
-		questionSet.title = data["title"].get<std::string>();
-		questionSet.description = data["description"].get<std::string>();
+		QuestionSet loadedQuestionSet;
+
+		loadedQuestionSet.id = data["id"].get<int>();
+		loadedQuestionSet.title = data["title"].get<std::string>();
+		loadedQuestionSet.description = data["description"].get<std::string>();
 
 		for (std::size_t i = 0; i < data["questions"].size(); i++)
 		{
@@ -73,14 +64,18 @@ bool QuestionSetLoader::LoadFromFile(
 			{
 				question.type = QuestionType::MultipleChoice;
 			}
+			else
+			{
+				error = "Unknown question type: " + type;
+				return false;
+			}
 
-			questionSet.questions.push_back(question);
+			loadedQuestionSet.questions.push_back(question);
 		}
 
-		std::cout << "Loaded questions: "
-			<< questionSet.questions.size() << std::endl;
+		questionSet = loadedQuestionSet;
 	}
-	catch (const nlohmann::json::parse_error& e)
+	catch (const nlohmann::json::exception& e)
 	{
 		error = e.what();
 		return false;
