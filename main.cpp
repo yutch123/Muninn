@@ -1,6 +1,8 @@
 ﻿#include "src/loader/QuestionSetLoader.h"
 #include "src/question/QuestionSet.h"
 #include "src/evaluator/AnswerEvaluator.h"
+#include "src/session/Session.h"
+#include "src/result/Result.h"
 
 #include <iostream>
 #include <string>
@@ -21,6 +23,8 @@ int main()
             << questionSet.questions.size() << std::endl;
 
         AnswerEvaluator evaluator;
+        Session session;
+        session.questionSetId = questionSet.id;
 
         for (const Question& question : questionSet.questions)
         {
@@ -34,6 +38,15 @@ int main()
 
             std::cout << "You answered: " << userAnswer << std::endl;
             AnswerResult result = evaluator.Evaluate(question, userAnswer); // функция оценивает ответ
+
+            SessionAnswer sessionAnswer;
+
+            sessionAnswer.questionId = question.id;
+            sessionAnswer.userAnswer = userAnswer;
+            sessionAnswer.result = result;
+
+            session.AddAnswer(sessionAnswer);
+
             std::cout << "Feedback: " << result.feedback << std::endl; // вывод Feedback
 
             std::cout << "Expected answer: " << question.expectedAnswer << std::endl;
@@ -62,6 +75,40 @@ int main()
             {
                 std::cout << "Type: MultipleChoice" << std::endl;
             }
+        }
+
+        std::cout << "\nSession answers: "
+            << session.answers.size() << std::endl;
+
+        Result result;
+        result.Calculate(session);
+
+        std::cout << "\nTest results:" << std::endl;
+        std::cout << "Total questions: " << result.totalQuestions << std::endl;
+        std::cout << "Correct answers: " << result.correctAnswers << std::endl;
+        std::cout << "Partially correct: " << result.partiallyCorrectAnswers << std::endl;
+        std::cout << "Incorrect answers: " << result.incorrectAnswers << std::endl;
+        std::cout << "Score: " << result.scorePercentage << "%" << std::endl;
+
+        for (const SessionAnswer& answer : session.answers)
+        {
+            std::cout << "Question ID: " << answer.questionId << std::endl;
+            std::cout << "User answer: " << answer.userAnswer << std::endl;
+
+            if (answer.result.status == AnswerStatus::Correct)
+            {
+                std::cout << "Status: Correct" << std::endl;
+            }
+            else if (answer.result.status == AnswerStatus::PartiallyCorrect)
+            {
+                std::cout << "Status: Partially correct" << std::endl;
+            }
+            else if (answer.result.status == AnswerStatus::Incorrect)
+            {
+                std::cout << "Status: Incorrect" << std::endl;
+            }
+
+            std::cout << "Feedback: " << answer.result.feedback << std::endl;
         }
     }
     else
