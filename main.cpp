@@ -1,12 +1,12 @@
 ﻿#include "src/loader/QuestionSetLoader.h"
 #include "src/question/QuestionSet.h"
+#include "src/evaluator/AnswerEvaluator.h"
 
 #include <iostream>
 #include <string>
 
 int main()
 {
-
     QuestionSet questionSet;
     QuestionSetLoader loader;
     std::string error;
@@ -20,10 +20,22 @@ int main()
         std::cout << "Number of questions: "
             << questionSet.questions.size() << std::endl;
 
+        AnswerEvaluator evaluator;
+
         for (const Question& question : questionSet.questions)
         {
             std::cout << "Question ID: " << question.id << std::endl;
             std::cout << "Question text: " << question.text << std::endl;
+            // ввод ответа
+            std::string userAnswer;
+
+            std::cout << "Your answer: ";
+            std::getline(std::cin, userAnswer);
+
+            std::cout << "You answered: " << userAnswer << std::endl;
+            AnswerResult result = evaluator.Evaluate(question, userAnswer); // функция оценивает ответ
+            std::cout << "Feedback: " << result.feedback << std::endl; // вывод Feedback
+
             std::cout << "Expected answer: " << question.expectedAnswer << std::endl;
             std::cout << "Accepted answers: "
                 << question.acceptedAnswers.size() << std::endl;

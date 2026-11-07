@@ -6,8 +6,8 @@
     {
       "id": 1,
       "type": "OpenText",
-      "text": "What is a variable in C++?",
-      "expectedAnswer": "A variable is a named memory location used to store data.",
+      "text": "What is a C++?",
+      "expectedAnswer": "C++ is a programming language",
       "acceptedAnswers": [
         "Named storage location for data",
         "A named variable used to store a value"
