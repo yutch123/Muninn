@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 
 #include "../question/QuestionSet.h"
 #include <string>
@@ -6,9 +6,9 @@
 class QuestionSetLoader
 {
 public:
-	bool LoadFromFile( // метод возвращает результат операции
-		const std::string& filePath, // путь к JSON
-		QuestionSet& questionSet, // ссылка на объект, куда загрузчик запишет результат работы
-		std::string& error // сюда загрузчик сможет записать описанные ошибки
+	bool LoadFromFile( // РјРµС‚РѕРґ РІРѕР·РІСЂР°С‰Р°РµС‚ СЂРµР·СѓР»СЊС‚Р°С‚ РѕРїРµСЂР°С†РёРё
+		const std::string& filePath, // РїСѓС‚СЊ Рє JSON
+		QuestionSet& questionSet, // СЃСЃС‹Р»РєР° РЅР° РѕР±СЉРµРєС‚, РєСѓРґР° Р·Р°РіСЂСѓР·С‡РёРє Р·Р°РїРёС€РµС‚ СЂРµР·СѓР»СЊС‚Р°С‚ СЂР°Р±РѕС‚С‹
+		std::string& error // СЃСЋРґР° Р·Р°РіСЂСѓР·С‡РёРє СЃРјРѕР¶РµС‚ Р·Р°РїРёСЃР°С‚СЊ РѕРїРёСЃР°РЅРЅС‹Рµ РѕС€РёР±РєРё
 	);
 };

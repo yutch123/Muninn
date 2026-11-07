@@ -1,12 +1,13 @@
-#pragma once 
+п»ї#pragma once 
 
 #include <string>
+#include "../evaluator/AnswerResult.h"
 
-enum class AnswerStatus // enum class - перечисление, которое задает ограниченный набор значений
+enum class AnswerStatus // enum class - РїРµСЂРµС‡РёСЃР»РµРЅРёРµ, РєРѕС‚РѕСЂРѕРµ Р·Р°РґР°РµС‚ РѕРіСЂР°РЅРёС‡РµРЅРЅС‹Р№ РЅР°Р±РѕСЂ Р·РЅР°С‡РµРЅРёР№
 {
-	Correct, // правильнй ответ
-	PartiallyCorrect, // ответ частично правильный
-	Incorrect // ответ неправильный
+	Correct, // РїСЂР°РІРёР»СЊРЅР№ РѕС‚РІРµС‚
+	PartiallyCorrect, // РѕС‚РІРµС‚ С‡Р°СЃС‚РёС‡РЅРѕ РїСЂР°РІРёР»СЊРЅС‹Р№
+	Incorrect // РѕС‚РІРµС‚ РЅРµРїСЂР°РІРёР»СЊРЅС‹Р№
 };
 
 struct AnswerResult

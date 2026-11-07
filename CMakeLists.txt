@@ -20,7 +20,7 @@ FetchContent_Declare(
 )
 
 FetchContent_MakeAvailable(ftxui nlohmann_json) ## Подключаем её к сборке
-add_executable(Muninn main.cpp "src/question/Question.h" "src/loader/QuestionSetLoader.h" "src/loader/QuestionSetLoader.cpp" "src/evaluator/AnswerResult.h" "src/evaluator/AnswerEvaluator.h" "src/evaluator/AnswerEvaluator.cpp") ## Указываем, что из main.cpp нужно собирать исполняемый файл
+add_executable(Muninn main.cpp "src/question/Question.h" "src/loader/QuestionSetLoader.h" "src/loader/QuestionSetLoader.cpp" "src/evaluator/AnswerResult.h" "src/evaluator/AnswerEvaluator.h" "src/evaluator/AnswerEvaluator.cpp" "src/session/Session.h" "src/session/Session.cpp" "src/session/SessionAnswer.h") ## Указываем, что из main.cpp нужно собирать исполняемый файл
 
 target_link_libraries(Muninn PRIVATE ## Связываем наш исполняемый файл с трёмя модулями 
 	ftxui::screen ## отрисовка терминала
@@ -29,6 +29,10 @@ target_link_libraries(Muninn PRIVATE ## Связываем наш исполняемый файл с трёмя м
 	nlohmann_json::nlohmann_json
 )
 
-add_executable(QuestionTest src/question/QuestionTest.cpp "src/evaluator/AnswerResult.h" "src/evaluator/AnswerEvaluator.h" "src/evaluator/AnswerEvaluator.cpp")
+add_executable(QuestionTest src/question/QuestionTest.cpp "src/evaluator/AnswerResult.h" "src/evaluator/AnswerEvaluator.h" "src/evaluator/AnswerEvaluator.cpp" "src/session/Session.h" "src/session/Session.cpp" "src/session/SessionAnswer.h")
+add_executable(QuestionSet src/question/QuestionSetTest.cpp "src/evaluator/AnswerResult.h" "src/evaluator/AnswerEvaluator.h" "src/evaluator/AnswerEvaluator.cpp" "src/session/Session.h" "src/session/Session.cpp" "src/session/SessionAnswer.h")
 
-add_executable(QuestionSet src/question/QuestionSetTest.cpp "src/evaluator/AnswerResult.h" "src/evaluator/AnswerEvaluator.h" "src/evaluator/AnswerEvaluator.cpp")
+add_executable(SessionTest
+    src/session/SessionTest.cpp
+    src/session/Session.cpp
+)

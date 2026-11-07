@@ -1,4 +1,4 @@
-#include "../question/Question.h"
+п»ї#include "../question/Question.h"
 #include "../question/QuestionSet.h"
 #include <string>
 #include <fstream>
@@ -10,17 +10,17 @@ bool QuestionSetLoader::LoadFromFile(
 	QuestionSet& questionSet,
 	std::string& error)
 {
-	std::ifstream file(filePath); // открываем файл в отдельном потоке
+	std::ifstream file(filePath); // РѕС‚РєСЂС‹РІР°РµРј С„Р°Р№Р» РІ РѕС‚РґРµР»СЊРЅРѕРј РїРѕС‚РѕРєРµ
 
-	if (!file.is_open()) // проверяем, удалось ли открыть файл
+	if (!file.is_open()) // РїСЂРѕРІРµСЂСЏРµРј, СѓРґР°Р»РѕСЃСЊ Р»Рё РѕС‚РєСЂС‹С‚СЊ С„Р°Р№Р»
 	{
-		error = "Failed to open JSON file: " + filePath; // считываем содержимое файла и преобразуем его в JSON-структуру
+		error = "Failed to open JSON file: " + filePath; // СЃС‡РёС‚С‹РІР°РµРј СЃРѕРґРµСЂР¶РёРјРѕРµ С„Р°Р№Р»Р° Рё РїСЂРµРѕР±СЂР°Р·СѓРµРј РµРіРѕ РІ JSON-СЃС‚СЂСѓРєС‚СѓСЂСѓ
 		return false;
 	}
 
 	nlohmann::json data;
 	
-	// обработка ошибок через try/catch  
+	// РѕР±СЂР°Р±РѕС‚РєР° РѕС€РёР±РѕРє С‡РµСЂРµР· try/catch  
 
 	try
 	{
