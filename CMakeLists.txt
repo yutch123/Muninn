@@ -29,6 +29,18 @@ target_link_libraries(Muninn PRIVATE ## Связываем наш исполняемый файл с трёмя м
 	nlohmann_json::nlohmann_json
 )
 
+add_executable(FtxuiTest
+    src/ui/FtxuiTest.cpp
+    src/loader/QuestionSetLoader.cpp
+)
+
+target_link_libraries(FtxuiTest PRIVATE
+    ftxui::screen
+    ftxui::dom
+    ftxui::component
+    nlohmann_json::nlohmann_json
+)
+
 add_executable(QuestionTest src/question/QuestionTest.cpp "src/evaluator/AnswerResult.h" "src/evaluator/AnswerEvaluator.h" "src/evaluator/AnswerEvaluator.cpp" "src/session/Session.h" "src/session/Session.cpp" "src/session/SessionAnswer.h")
 add_executable(QuestionSet src/question/QuestionSetTest.cpp "src/evaluator/AnswerResult.h" "src/evaluator/AnswerEvaluator.h" "src/evaluator/AnswerEvaluator.cpp" "src/session/Session.h" "src/session/Session.cpp" "src/session/SessionAnswer.h")
 
@@ -39,5 +51,6 @@ add_executable(SessionTest
 add_executable(ResultTest
     src/result/ResultTest.cpp
     src/result/Result.cpp
-    src/session/Session.cpp
-)
+    src/session/Session.cpp)
+
+

@@ -1,0 +1,88 @@
+{
+    "id": 1,
+    "title": "Logic Puzzles — Easy Level",
+    "description": "A collection of easy logic puzzles and riddles.",
+    "questions": [
+      {
+        "id": 1,
+        "type": "OpenText",
+        "text": "Continue the Fibonacci sequence: 1, 2, 3, 5, 8, ?",
+        "expectedAnswer": "13",
+        "acceptedAnswers": [
+          "13",
+          "thirteen"
+        ],
+        "rules": {
+          "minLength": 1,
+          "caseSensitive": false
+        },
+        "explanation": "The next number is obtained by adding the two previous numbers: 5 + 8 = 13."
+      },
+      {
+        "id": 2,
+        "type": "OpenText",
+        "text": "How many apples grow on a birch tree?",
+        "expectedAnswer": "0",
+        "acceptedAnswers": [
+          "0",
+          "zero",
+          "none",
+          "not a single one"
+        ],
+        "rules": {
+          "minLength": 1,
+          "caseSensitive": false
+        },
+        "explanation": "Apples grow on apple trees, not on birch trees."
+      },
+      {
+        "id": 3,
+        "type": "OpenText",
+        "text": "Two hippos are flying: one is white, the other is flying to the right. How much does one kilogram of asphalt weigh if the hedgehog is five years old?",
+        "expectedAnswer": "1 kilogram",
+        "acceptedAnswers": [
+          "1 kg",
+          "one kg",
+          "one kilogram",
+          "1 kilogram"
+        ],
+        "rules": {
+          "minLength": 1,
+          "caseSensitive": false
+        },
+        "explanation": "The color and direction of the hippos, as well as the hedgehog's age, are irrelevant. One kilogram of asphalt weighs one kilogram."
+      },
+      {
+        "id": 4,
+        "type": "OpenText",
+        "text": "He comes uninvited in the evening and disappears in the morning, even when asked to stay. What is it?",
+        "expectedAnswer": "Sleep",
+        "acceptedAnswers": [
+          "sleep",
+          "dream"
+        ],
+        "rules": {
+          "minLength": 1,
+          "caseSensitive": false
+        },
+        "explanation": "Sleep comes in the evening when a person falls asleep and ends when they wake up."
+      },
+      {
+        "id": 5,
+        "type": "OpenText",
+        "text": "What letter appears twice in 'summer', once in 'minute', and not at all in 'year'?",
+        "expectedAnswer": "The letter M",
+        "acceptedAnswers": [
+          "M",
+          "letter M",
+          "the letter M"
+        ],
+        "rules": {
+          "minLength": 1,
+          "caseSensitive": false
+        },
+        "explanation": "The word 'summer' contains two M's, 'minute' contains one, and 'year' contains none."
+      }
+    ]
+  },
+  "```"

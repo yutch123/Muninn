@@ -13,7 +13,7 @@ int main()
     QuestionSetLoader loader;
     std::string error;
 
-    if (loader.LoadFromFile("../../../data/basic_questions.json", questionSet, error))
+    if (loader.LoadFromFile("../../../data/LogicPuzzles.json", questionSet, error))
     {
         std::cout << "Question Set ID: " << questionSet.id << std::endl;
         std::cout << "Title: " << questionSet.title << std::endl;
