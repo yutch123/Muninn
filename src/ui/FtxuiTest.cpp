@@ -6,6 +6,7 @@
 #include "../question/QuestionSet.h"
 
 #include <string>
+#include <vector>
 
 int main()
 {
@@ -17,7 +18,19 @@ int main()
 
     int selectedSet = 0;
 
+    int currentQuestion = 0;
+
+    std::string userAnswer;
+
+    auto answerInput = ftxui::Input(&userAnswer, "Your answer...");
+
+    auto testContainer = ftxui::Container::Vertical({
+        answerInput
+    });
+
     QuestionSet questionSet;
+    std::vector<QuestionSet> questionSets;
+
     QuestionSetLoader loader;
     std::string error;
 
@@ -27,7 +40,14 @@ int main()
         error
     );
 
-    ftxui::Component component = ftxui::Renderer([&]() -> ftxui::Element {
+    if (isLoaded)
+    {
+        questionSets.push_back(questionSet);
+    }
+
+    ftxui::Component component = ftxui::Container::Vertical({
+        testContainer,
+        ftxui::Renderer([&]() -> ftxui::Element {
 
         if (currentScreen == 0)
         {
@@ -112,21 +132,22 @@ int main()
             auto backText = ftxui::text("< Back  [ESC]")
                 | ftxui::color(ftxui::Color::RGB(180, 180, 180));
 
-            if (isLoaded)
+            if (!questionSets.empty())
             {
                 auto questionSetInfo = ftxui::vbox({
-                    ftxui::text(questionSet.title)
+                    ftxui::text(questionSets[selectedSet].title)
                         | ftxui::bold
                         | ftxui::color(ftxui::Color::White),
 
-                    ftxui::text(questionSet.description)
+                    ftxui::text(questionSets[selectedSet].description)
                         | ftxui::color(ftxui::Color::RGB(180, 180, 180)),
 
                     ftxui::text(
-                        "Questions: " + std::to_string(questionSet.questions.size())
+                        "Questions: " + std::to_string(questionSets[selectedSet].questions.size())
                     )
                         | ftxui::color(ftxui::Color::RGB(145, 145, 145))
-                    }) | ftxui::border;
+                    }) | ftxui::borderStyled(ftxui::Color::RGB(110, 25, 30));
+
 
                 return ftxui::vbox({
                     setsTitle | ftxui::center,
@@ -150,13 +171,46 @@ int main()
             }
         }
 
-        return ftxui::text("Unknown screen");
-    })
+        else if (currentScreen == 3)
+        {
+            if (!questionSets.empty() &&
+                currentQuestion < static_cast<int>(questionSets[selectedSet].questions.size()))
+            {
+                return ftxui::vbox({
+                    ftxui::text("MUNINN Ч TEST MODE")
+                        | ftxui::bold
+                        | ftxui::color(ftxui::Color::White),
+
+                    ftxui::separator(),
+
+                    ftxui::text(
+                        "QUESTION " + std::to_string(currentQuestion + 1) +
+                        " / " + std::to_string(questionSets[selectedSet].questions.size())
+                    )
+                        | ftxui::color(ftxui::Color::RGB(180, 180, 180)),
+
+                    ftxui::text(questionSets[selectedSet].questions[currentQuestion].text)
+                        | ftxui::bold
+                        | ftxui::color(ftxui::Color::White),
+
+                    ftxui::filler(),
+
+                    ftxui::text("Press ESC to return")
+                        | ftxui::color(ftxui::Color::RGB(180, 180, 180))
+                }) | ftxui::border;
+            }
+        }
+
+
+
+            return ftxui::text("Unknown screen");
+        })
+    })  
 
     | ftxui::CatchEvent([&](ftxui::Event event) { // ќбработка событий клавиатуры
 
         if (event == ftxui::Event::Escape) {
-            if (currentScreen == 1 || currentScreen == 2) {
+            if (currentScreen == 1 || currentScreen == 2 || currentScreen == 3) {
                 currentScreen = 0;
                 selectedItem = 0;
             }
@@ -181,8 +235,11 @@ int main()
         if (event == ftxui::Event::ArrowDown) {
 
             if (currentScreen == 2) {
-                selectedSet++;
+                if (selectedSet + 1 < static_cast<int>(questionSets.size())) {
+                    selectedSet++;
+                }
             }
+
             else if (selectedItem < 4) {
                 selectedItem++;
             }
@@ -192,17 +249,28 @@ int main()
 
         if (event == ftxui::Event::Return)
         {
-            if (selectedItem == 0) {
-                currentScreen = 1;
-            }
-
-            if (selectedItem == 1)
+            if (currentScreen == 0)
             {
-                currentScreen = 2;
+                if (selectedItem == 0) {
+                    currentScreen = 1;
+                }
+
+                if (selectedItem == 1) {
+                    currentScreen = 2;
+                }
+
+                if (selectedItem == 4) {
+                    screen.Exit();
+                }
             }
 
-            if (selectedItem == 4) {
-                screen.Exit();
+            else if (currentScreen == 2)
+            {
+                if (!questionSets.empty())
+                {
+                    currentQuestion = 0;
+                    currentScreen = 3;
+                }
             }
 
             return true;
